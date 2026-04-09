@@ -6,6 +6,7 @@ SERVICE_NAME="socat-forward.service"
 SERVICE_FILE="/etc/systemd/system/${SERVICE_NAME}"
 SOCAT_BIN="/usr/bin/socat"
 
+RED='\033[0;31m'
 GREEN='\033[0;32m'
 NC='\033[0m'
 
@@ -25,9 +26,9 @@ prepare() {
     fi
 }
 
-require_sudo() {
-    if ! sudo -v >/dev/null 2>&1; then
-        echo "Error: sudo access is required."
+require_root() {
+    if [ "$EUID" -ne 0 ]; then
+        echo -e "${RED}[ERROR] Run the script under root!${NC}"
         exit 1
     fi
 }
@@ -39,7 +40,6 @@ install_socat() {
     fi
 
     echo "socat is not installed. Installing..."
-    require_sudo
 
     if sudo apt-get install -y socat >/dev/null 2>&1; then
         return 0
@@ -51,8 +51,6 @@ install_socat() {
 
 delete_forward() {
     echo "Deleting forward..."
-
-    require_sudo
 
     if systemctl is-active --quiet "${SERVICE_NAME}"; then
         echo "Stopping ${SERVICE_NAME}..."
@@ -101,7 +99,6 @@ setup_forward() {
     delete_forward
 
     echo "Creating ${SERVICE_FILE}..."
-    require_sudo
 
     sudo tee "${SERVICE_FILE}" >/dev/null <<EOF
 [Unit]
@@ -153,5 +150,6 @@ main() {
     done
 }
 
+require_root
 prepare
 main
