@@ -1,5 +1,5 @@
-## Install
+## Install socat UDP forward
 
 ```bash
-wget -O install.sh https://raw.githubusercontent.com/funkyslim/socat_cascade/main/install.sh && chmod +x install.sh && ./install.sh
+wget -O socat_install.sh https://raw.githubusercontent.com/funkyslim/udp_cascade/main/socat_install.sh && chmod +x socat_install.sh && ./socat_install.sh
 ```
