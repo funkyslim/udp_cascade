@@ -9,3 +9,9 @@ wget -O socat_install.sh https://raw.githubusercontent.com/funkyslim/udp_cascade
 ```bash
 wget -O iptables_install.sh https://raw.githubusercontent.com/funkyslim/udp_cascade/main/iptables_install.sh && chmod +x iptables_install.sh && ./iptables_install.sh
 ```
+
+## Install nftables UDP forward
+
+```bash
+wget -O nftables_install.sh https://raw.githubusercontent.com/funkyslim/udp_cascade/main/nftables_install.sh && chmod +x nftables_install.sh && ./nftables_install.sh
+```
