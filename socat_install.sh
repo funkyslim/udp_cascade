@@ -2,6 +2,7 @@
 
 set -u
 
+SCRIPT_PATH="/usr/local/bin/socat_cascade"
 SERVICE_NAME="socat-forward.service"
 SERVICE_FILE="/etc/systemd/system/${SERVICE_NAME}"
 SOCAT_BIN="/usr/bin/socat"
@@ -20,9 +21,9 @@ print_menu() {
 }
 
 prepare() {
-    if [ "$0" != "/usr/local/bin/socat_cascade" ]; then
-        cp -f "$0" "/usr/local/bin/socat_cascade"
-        chmod +x "/usr/local/bin/socat_cascade"
+    if [ "$0" != "$SCRIPT_PATH" ]; then
+        cp -f "$0" "$SCRIPT_PATH"
+        chmod +x "$SCRIPT_PATH"
     fi
 }
 
